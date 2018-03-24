@@ -1,0 +1,8 @@
+
+config CTP_ALSPS
+	bool "CTP_ALSPS for MediaTek package"
+	default n
+	help
+	It support different type sensor
+	in this platform. If this option
+	is set, it will support CTP_ALSPS.

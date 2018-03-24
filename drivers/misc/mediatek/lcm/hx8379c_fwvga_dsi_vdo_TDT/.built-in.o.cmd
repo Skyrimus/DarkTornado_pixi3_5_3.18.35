@@ -1,0 +1,1 @@
+cmd_drivers/misc/mediatek/lcm/hx8379c_fwvga_dsi_vdo_TDT/built-in.o :=  /root/linaro/bin/arm-cortex_a7-linux-gnueabihf-ld -EL    -r -o drivers/misc/mediatek/lcm/hx8379c_fwvga_dsi_vdo_TDT/built-in.o drivers/misc/mediatek/lcm/hx8379c_fwvga_dsi_vdo_TDT/hx8379c_fwvga_dsi_vdo_TDT.o 
