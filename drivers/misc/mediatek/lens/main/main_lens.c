@@ -31,6 +31,8 @@
 
 #include "lens_info.h"
 #include "lens_list.h"
+#include "gpio_const.h"
+#include "mt_gpio.h"
 
 #define AF_DRVNAME "MAINAF"
 
@@ -52,6 +54,10 @@
 #define PLATFORM_DRIVER_NAME "lens_actuator_main_af"
 #define AF_DRIVER_CLASS_NAME "actuatordrv_main_af"
 
+#define GPIO_CAMERA_AF_EN_PIN         (GPIO34 | 0x80000000)
+#define GPIO_CAMERA_AF_EN_PIN_M_GPIO   GPIO_MODE_00
+#define GPIO_CAMERA_AF_EN_PIN_M_CLK   GPIO_MODE_01
+#define GPIO_CAMERA_AF_EN_PIN_M_EINT   GPIO_MODE_06
 
 #if I2C_CONFIG_SETTING == 1
 static struct i2c_board_info kd_lens_dev __initdata = {
@@ -213,7 +219,7 @@ static int AF_Open(struct inode *a_pstInode, struct file *a_pstFile)
 		LOG_INF("The device is opened\n");
 		return -EBUSY;
 	}
-
+mt_set_gpio_out(GPIO_CAMERA_AF_EN_PIN, 1);
 	spin_lock(&g_AF_SpinLock);
 	g_s4AF_Opened = 1;
 	spin_unlock(&g_AF_SpinLock);
@@ -240,7 +246,7 @@ static int AF_Release(struct inode *a_pstInode, struct file *a_pstFile)
 		g_s4AF_Opened = 0;
 		spin_unlock(&g_AF_SpinLock);
 	}
-
+mt_set_gpio_out(GPIO_CAMERA_AF_EN_PIN, 0);
 	LOG_INF("End\n");
 
 	return 0;
@@ -377,7 +383,9 @@ static int AF_i2c_probe(struct i2c_client *client, const struct i2c_device_id *i
 	}
 
 	spin_lock_init(&g_AF_SpinLock);
-
+	mt_set_gpio_mode(GPIO_CAMERA_AF_EN_PIN,  GPIO_CAMERA_AF_EN_PIN_M_GPIO);
+	mt_set_gpio_dir(GPIO_CAMERA_AF_EN_PIN, GPIO_DIR_OUT);
+	mt_set_gpio_out(GPIO_CAMERA_AF_EN_PIN, 0);
 	LOG_INF("Attached!!\n");
 
 	return 0;
