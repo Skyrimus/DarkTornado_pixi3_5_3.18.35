@@ -11,7 +11,7 @@ DarkTornado v1.5 Kernel 3.18.35 For Alcatel One Touch POP 3(5) PIXI3-5
 | Camera #1 | `ov5670_mipi_raw` | Yes | Yes |
 | Camera #2 | `gc2355_mipi_raw_front` | Yes | Yes |
 | Camera(etc) | `Some drivers for working libcameracustom` | Yes | Yes |
-| Lens #1 | `DW9814AF` | Yes | No |
+| Lens #1 | `DW9814AF` | Yes | Yes |
 | Lens #2 | `BU6424AF` | Yes | No |
 | Flashlight | `constant_flashlight` | Yes | Yes |
 | Accelerometer | `BMA222 (i2c 2-0018)` | Yes | Yes |
